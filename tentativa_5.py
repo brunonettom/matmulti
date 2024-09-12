@@ -29,4 +29,26 @@ for A in A_vals:
             
             solucoes.append((xu,yu))
 
+# def lista_AB_uv_xuvyuv(listaAB):
+        
+#         lista_AB_uv_xuvyuv=[]
+
+#         for AB in listaAB:
+#             A = AB[0]
+#             B = AB[1]
+            
+#             u = (A + B) / 2
+#             v = (A-B)/2  
+#             # Cálculo de x e y com as fórmulas corretas
+#             xu = 6 * math.cos(u) - 7 * math.cos(3 * u)
+#             yu = 6 * math.sin(u) - 7 * math.sin(3 * u)
+#             xv = 6 * math.cos(v) - 7 * math.cos(3 * v)
+#             yv = 6 * math.sin(v) - 7 * math.sin(3 * v)
+
+#             lista_AB_uv_xuvyuv.append([A,B,])
+
+
+
+
+
 print(solucoes)
