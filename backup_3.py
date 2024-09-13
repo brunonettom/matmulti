@@ -29,13 +29,13 @@ def encontrar_intervalo(A, B_min, B_max, num_pontos=1000):
             # print(x[i], x[i + 1])
             a1 = x[i]
             b1 = x[i+1]
-    # for j in range(len(x) - 1):
-    #     if f1(A,x[j]) * f1(A,x[j + 1]) < 0:
-    #         # print(x[i], x[i + 1])
-    #         a2= x[j]
-    #         b2 = x[j+1]
+    for j in range(len(x) - 1):
+        if f1(A,x[j]) * f1(A,x[j + 1]) < 0:
+            # print(x[i], x[i + 1])
+            a2= x[j]
+            b2 = x[j+1]
 
-            return a1,b1
+            return a1,b1,a2,b2
     return None, None
 
 def bisseccao(A, B_min, B_max,tol=1e-7, max_iter=1000):
@@ -49,7 +49,7 @@ def bisseccao(A, B_min, B_max,tol=1e-7, max_iter=1000):
     # Loop principal de bisseção
     for i in range(max_iter):
         m = (a + b) / 2  # ponto médio
-        if abs(f1(A,m)) < tol or abs(b - a) / 2 < tol:
+        if abs(f1(A,m)) < tol or (b - a) / 2 < tol:
             return m  # retorna a raiz aproximada
 
         # Verifica em qual metade está a raiz
@@ -68,23 +68,19 @@ def bisseccao(A, B_min, B_max,tol=1e-7, max_iter=1000):
 
 
 # Lista de valores de A
-As = [2*pi]
+As = [0, pi, 2*pi, 4*pi]
 listaAB = []
 
-B_min1, B_max1 = -2*pi,-2
-B_min2,B_max2 = -2,0
+B_min, B_max = -2*pi,0
 # Para cada valor de A, procurar as raízes de B
 for A in As:
     B_min, B_max = -2*pi,0
    
-    B1 = bisseccao(A, B_min1, B_max1,tol=1e-7, max_iter=1000)
-    B2 = bisseccao(A, B_min2, B_max2,tol=1e-7, max_iter=1000)
-    
+    B = bisseccao(A, B_min, B_max,tol=1e-7, max_iter=1000)
+    B
     # print(B)
     # print(A)
-    listaAB.append([A,B1])
-    listaAB.append([A,B2])
-
+    listaAB.append([A,B])
     
 
 def lista_AB_uv_xuvyuv(listaAB):
@@ -96,9 +92,9 @@ def lista_AB_uv_xuvyuv(listaAB):
         A = AB[0]
         B = AB[1]
         # print('AB')
+        
         u = (A + B) / 2
         v = (A-B)/2  
-        
         # Cálculo de x e y com as fórmulas corretas
         
         xu = 6 * math.cos(u) - 7 * math.cos(3 * u)
@@ -107,11 +103,9 @@ def lista_AB_uv_xuvyuv(listaAB):
         yv = 6 * math.sin(v) - 7 * math.sin(3 * v)
 
         bate=(abs(xu-xv)<0.01 and abs(yu-yv)<0.01)
-        if 0<=u<=2*pi and 0<=v<=2*pi:
-            lista_AB_uv_xuvyuv.append([A,B,u,v,xu,xv,yu,yv,bate])
-            str+=(f'A:{A:.1f}, B:{B:.1f} || u:{u:.1f}, v:{v:.1f},|| xu:{xu:.1f}, xv:{xv:.1f}|, yu:{yu:.1f}, yv:{yv:.1f}, ||bate:{bate} \n')
-        else:
-            str+=(f'u inválido:{u:.2f}, v inválido:{v:.2f} \n')
+
+        lista_AB_uv_xuvyuv.append([A,B,u,v,xu,xv,yu,yv,bate])
+        str+=(f'A:{A:.1f}, B:{B:.1f} || u:{u:.1f}, v:{v:.1f},|| xu:{xu:.1f}, xv:{xv:.1f}|, yu:{yu:.1f}, yv:{yv:.1f}, ||bate:{bate} \n')
     return str
 
 # lista_AB_uv_xuvyuv(listaAB)
